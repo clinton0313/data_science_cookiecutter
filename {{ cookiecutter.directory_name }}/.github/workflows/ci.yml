@@ -1,0 +1,56 @@
+name: ci
+env:
+  COLUMNS: 120
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: ["dev"]
+jobs:
+  deploy:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest] 
+    runs-on: ${{ matrix.os }}
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install
+        shell: bash
+
+      - name: Run pytest
+        run: |
+          poetry run pytest --disable-warnings >> report.md
+          sed -i "s/test session starts/Pytest Test Report/" report.md
+        shell: bash
+
+      - name: Flake8 lint check
+        if: always()
+        run: |
+          echo -e "\n\n=============================Flake8 Lint Report=============================\n" >> report.md
+            poetry run flake8 src/ tests/ training/scripts/ --output-file=report.md
+        shell: bash
+
+      - name: Add Report
+        if: always()
+        run: cat report.md >> $GITHUB_STEP_SUMMARY
+        shell: bash

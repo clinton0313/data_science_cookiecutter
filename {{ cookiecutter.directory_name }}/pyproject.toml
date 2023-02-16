@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "{{ cookiecutter.project_name }}"
+version = "0.0.1"
+description = "{{ cookiecutter.description }}"
+authors = ["{{ cookiecutter.author }} {{ cookiecutter.email }}"]
+packages = [
+    { include = "{{ cookiecutter.project_name }}", from = "src" }
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+importlib = "^1.0.4"
+importlib-metadata = "^6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.21.2"
+isort = "^5.12.0"
+black = "^23.1.0"
+flake9 = "^3.8.3.post2"
+pytest = "^7.2.1"
+pytest-pretty = "^1.1.0"
+mkdocs-material = "^9.0.12"
+tox = "^4.4.5"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+markers = [
+  "slow: mark tests run on slow deselected by default (use '--runsagemaker' to select')"
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::FutureWarning",
+]
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+'''
+
+[tool.isort]
+profile = "black"
+skip_glob = ["*/__init__.py"]
+line_length = 79
+
+[tool.flake8]
+ignore = 'W292, W291, W293, W503, W605, E265, E203'
+max-line-length = 79
+max-doc-length = 79
