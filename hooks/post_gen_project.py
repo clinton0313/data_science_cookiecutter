@@ -11,7 +11,7 @@ if "{{ cookiecutter.cookiecutter_type }}" == "lite":
     os.remove("mkdocs.yml")
     shutil.rmtree("docs", ignore_errors=True)
 
-
+subprocess.check_call(["poetry", "install"])
 subprocess.check_call(["git", "init"])
 subprocess.check_call(["git", "add", "."])
 subprocess.check_call(["git", "commit", "-m", "'Initial commit'"])

@@ -2,8 +2,8 @@
     "directory_name": "Data Science Project",
     "project_name": "project_name",
     "description": "A short description of the project",
-    "author": "<author>",
-    "email": "<email>",	
+    "author": "author <author>",
+    "email": "email <email>",	
     "open_source_license": ["MIT", "BSD-3-Clause", "No license file"],
     "cookiecutter_type": ["full", "lite"]
 }
