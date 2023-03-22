@@ -14,7 +14,7 @@ if "{{ cookiecutter.cookiecutter_type }}" == "lite":
     except:
         sys.exit(1)
 
-subprocess.check_call("cd", "{{ cookiecutter.directory_name }}")
-subprocess.check_call("git", "init")
-subprocess.check_call("git", "add", ".")
-subprocess.check_call("git", "commit", "-m", "'Initial commit'")
+os.chdir("{{ cookiecutter.directory_name }}")
+subprocess.check_call(["git", "init"])
+subprocess.check_call(["git", "add", "."])
+subprocess.check_call(["git", "commit", "-m", "'Initial commit'"])
