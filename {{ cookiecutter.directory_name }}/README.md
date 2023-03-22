@@ -3,5 +3,3 @@ Add if else on lite vs full package
 Mkdocs?
 Readme template
 Tox.ini/pyproject.toml configs
-
-pregen check for poetry installation?
