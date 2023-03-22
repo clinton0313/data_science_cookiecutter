@@ -1,18 +1,16 @@
 import os
 import subprocess
-import sys
+import shutil
 
 from cookiecutter.main import cookiecutter
 
 if "{{ cookiecutter.cookiecutter_type }}" == "lite":
-    try:
-        os.removedirs("data")
-        os.removedirs(os.path.join("tests", "data"))
-        os.remove("LICENSE")
-        os.remove("mkdocs.yml")
-        os.removedirs("docs")
-    except:
-        sys.exit(1)
+    shutil.rmtree("/data", ignore_errors=True)
+    shutil.rmtree(os.path.join("tests", "data"), ignore_errors=True)
+    os.remove("LICENSE")
+    os.remove("mkdocs.yml")
+    shutil.rmtree("docs", ignore_errors=True)
+
 
 subprocess.check_call(["git", "init"])
 subprocess.check_call(["git", "add", "."])
