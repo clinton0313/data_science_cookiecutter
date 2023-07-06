@@ -4,7 +4,7 @@ env:
 on:
   pull_request:
     types: [opened, reopened, synchronize]
-    branches: ["dev"]
+    branches: ["main"]
 jobs:
   deploy:
     strategy:
