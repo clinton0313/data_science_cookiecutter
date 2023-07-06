@@ -23,6 +23,10 @@ pytest-pretty = "^1.1.0"
 mkdocs-material = "^9.0.12"
 tox = "^4.4.5"
 pre-commit = "^3.2.0"
+sphinx = "^6.0.0"
+sphinx-rtd-theme = "^1.2.2"
+myst-parser = "^2.0.0"
+sphinx-toolbox = "^3.4.0"
 
 
 [build-system]
